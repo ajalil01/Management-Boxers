@@ -1,8 +1,13 @@
 from dotenv import load_dotenv
-import os
+from pydantic_settings import BaseSettings
 
 load_dotenv()
 
-DATABASE_URL = os.getenv("DATABASE_URL")
-DEBUG = os.getenv("DEBUG", "False") == "True"
-SECRET_KEY = os.getenv("SECRET_KEY", "defaultsecret")
+class Settings(BaseSettings):
+    DATABASE_URL: str
+    DEBUG: bool = False
+    SECRET_KEY: str = "defaultsecret"
+    ALGORITHM: str = "HS256"
+    ACCESS_TOKEN_EXPIRE_MINUTES: int = 60
+
+settings = Settings()
