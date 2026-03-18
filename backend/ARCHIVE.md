@@ -15,3 +15,6 @@ logger.info("Admin created successfully")
 logger.warning("Duplicate admin email attempted")
 logger.error("Failed to create admin")
 pip install email-validator
+
+docker build -t boxers-api .
+docker-compose up
