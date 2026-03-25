@@ -7,7 +7,7 @@ from uuid import UUID
 
 router = APIRouter()
 
-@router.post("/", response_model=AdminResponseModel, status_code=201, dependencies=[Depends(require_role("admin"))])
+@router.post("/", response_model=AdminResponseModel, status_code=201)
 async def create_admin(admin: AdminCreate):
     return await AdminController.create_admin(admin)
 
