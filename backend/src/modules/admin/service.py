@@ -118,3 +118,5 @@ class AdminService:
         except Exception as e:
             logger.error(f"[Service] Failed to delete admin ({admin_id}): {str(e)}")
             raise
+
+    

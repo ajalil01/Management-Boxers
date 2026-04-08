@@ -19,6 +19,10 @@ async def get_all_admins():
 async def get_admin(admin_id: UUID):
     return await AdminController.get_admin_by_id(admin_id)
 
+@router.get("/me", response_model=AdminResponseModel)
+async def get_current_admin(current_user = Depends(get_current_user)):
+    return await AdminController.get_current_admin(current_user)
+
 @router.put("/{admin_id}", response_model=AdminResponseModel, dependencies=[Depends(require_role("admin"))])
 async def update_admin(admin_id: UUID, email: str | None = None, password: str | None = None):
     return await AdminController.update_admin(admin_id, email, password)
