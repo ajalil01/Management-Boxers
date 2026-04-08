@@ -6,6 +6,7 @@ from src.modules.admin.service import AdminService
 from src.modules.coach.service import CoachService
 from src.modules.boxer.service import BoxerService
 from src.modules.auth.utils.logger import logger
+from uuid import UUID
 
 security = HTTPBearer()
 
@@ -35,17 +36,23 @@ async def get_current_user(credentials: HTTPAuthorizationCredentials = Depends(s
     
     # Fetch user based on role
     user = None
-    if role == "admin":
-        user = await AdminService.get_admin_by_id(int(user_id))
-    elif role == "coach":
-        user = await CoachService.get_coach_by_id(int(user_id))
-    elif role == "boxer":
-        user = await BoxerService.get_boxer_by_id(int(user_id))
-    else:
+    try:
+        if role == "admin":
+            # Convert string to UUID
+            user = await AdminService.get_admin_by_id(UUID(user_id))
+        elif role == "coach":
+            user = await CoachService.get_coach_by_id(UUID(user_id))
+        elif role == "boxer":
+            user = await BoxerService.get_boxer_by_id(UUID(user_id))
+        else:
+            raise credentials_exception
+    except Exception as e:
+        logger.error(f"Error fetching user: {str(e)}")
         raise credentials_exception
     
     if user is None:
         raise credentials_exception
     
-    return {"user": user, "role": role, "user_id": user_id}
+    return user  # Just return the user object directly
 
+    

@@ -17,22 +17,16 @@ async def coach_login(payload: LoginRequest):
 async def boxer_login(payload: LoginRequest):
     return await AuthController.login_boxer(payload)
 
-@router.get("/me", response_model=CurrentUserResponse)
+# SIMPLE endpoint to get current user from token
+@router.get("/me")
 async def get_current_user_info(current_user = Depends(get_current_user)):
-    user = current_user["user"]
-    role = current_user["role"]
-    
-    # Map user fields to UserInfoResponse
-    user_info = UserInfoResponse(
-        id=str(getattr(user, 'id', '')),
-        email=getattr(user, 'email', ''),
-        role=role,
-        full_name=getattr(user, 'full_name', None) or getattr(user, 'name', None),
-        created_at=getattr(user, 'created_at', None)
-    )
-    
-    return CurrentUserResponse(
-        success=True,
-        message="User retrieved successfully",
-        data=user_info
-    )
+    return {
+        "success": True,
+        "message": "User retrieved successfully",
+        "data": {
+            "id": str(current_user.id),  # Convert UUID to string
+            "email": current_user.email,
+            "role": current_user.__tablename__.rstrip('s')  # 'admins' -> 'admin'
+        }
+    }
+
