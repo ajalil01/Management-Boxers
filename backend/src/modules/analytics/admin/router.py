@@ -3,7 +3,7 @@ from src.middlewares.authorization import require_role
 
 from src.modules.analytics.admin.controller import AdminAnalyticsController
 
-router = APIRouter(prefix="/analytics/admin", tags=["Admin Analytics"])
+router = APIRouter(tags=["Admin Analytics"])
 
 
 @router.get("/dashboard", dependencies=[Depends(require_role("admin"))])
