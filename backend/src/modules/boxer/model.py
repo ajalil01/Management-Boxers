@@ -3,6 +3,9 @@ from sqlalchemy import Column, String, ForeignKey
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import relationship
 from src.db.base import Base
+from sqlalchemy import DateTime
+from datetime import datetime
+
 
 class Boxer(Base):
     __tablename__ = "boxers"
@@ -14,5 +17,6 @@ class Boxer(Base):
     password = Column(String, nullable=False)
     picture = Column(String, nullable=True)
     coach_id = Column(UUID(as_uuid=True), ForeignKey("coaches.id"), nullable=False)
+    created_at = Column(DateTime, default=datetime.utcnow, nullable=False)
 
     coach = relationship("Coach", backref="boxers")
