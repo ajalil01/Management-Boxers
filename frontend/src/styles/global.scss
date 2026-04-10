@@ -41,3 +41,42 @@ button:hover{
   cursor: pointer;
 }
 
+
+html, body {
+  overflow-x: hidden;
+  width: 100%;
+  position: relative;
+  margin: 0;
+  padding: 0;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+// RTL Support
+.rtl {
+  direction: rtl;
+  
+  // For Alert positioning
+  .fixed {
+    &.left-5 {
+      left: auto;
+      right: 1.25rem;
+    }
+    
+    &.right-5 {
+      right: auto;
+      left: 1.25rem;
+    }
+  }
+}
+
+// Or use CSS logical properties
+.alert-container {
+  position: fixed;
+  top: 1.25rem;
+  inset-inline-end: 1.25rem; //代替 right in LTR, left in RTL
+  z-index: 50;
+  width: 300px;
+}

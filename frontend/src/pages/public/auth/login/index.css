@@ -61,3 +61,73 @@
 .animate-slideUp {
   animation: slideUp 0.6s ease;
 }
+
+/* =======================
+   ✨ Enhanced Page Load Animations with Staggered Effects
+   ======================= */
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Main container animation */
+.animate-fadeIn {
+  animation: fadeIn 0.5s ease;
+}
+
+/* Content card animation (was already there) */
+.animate-slideUp {
+  animation: slideUp 0.6s ease;
+}
+
+/* Add these new staggered animations for child elements */
+.logo-animate {
+  animation: slideDown 0.6s ease 0.05s both;
+}
+
+.title-animate {
+  animation: slideUp 0.6s ease 0.1s both;
+}
+
+.subtitle-animate {
+  animation: slideUp 0.6s ease 0.15s both;
+}
+
+.email-field-animate {
+  animation: slideUp 0.6s ease 0.2s both;
+}
+
+.password-field-animate {
+  animation: slideUp 0.6s ease 0.25s both;
+}
+
+.button-animate {
+  animation: slideUp 0.6s ease 0.3s both;
+}

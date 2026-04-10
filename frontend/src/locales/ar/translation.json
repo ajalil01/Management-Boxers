@@ -1,0 +1,123 @@
+{
+  "auth": {
+    "welcome": "مرحبًا بعودتك",
+    "subtitle": "قم بتسجيل الدخول إلى حسابك",
+    "email": "البريد الإلكتروني",
+    "password": "كلمة المرور",
+    "email_placeholder": "panic@thedis.co",
+    "password_placeholder": "********",
+    "login_button": "تسجيل الدخول",
+    "loading": "جارٍ تسجيل الدخول...",
+    "errors": {
+      "required_fields": "يرجى ملء جميع الحقول",
+      "login_failed": "فشل تسجيل الدخول",
+      "network": "خطأ في الشبكة. حاول مرة أخرى."
+    },
+    "success": {
+      "login_success": "تم تسجيل الدخول بنجاح"
+    }
+  },
+  "sidebar": {
+    "dashboard": "لوحة التحكم",
+    "Home": "الرئيسية",
+    "Coaches": "المدربين",
+    "Admins": "المشرفين",
+    "players": "اللاعبين",
+    "training": "التدريب",
+    "matches": "المباريات",
+    "analytics": "التحليلات",
+    "settings": "الإعدادات",
+    "profile": "الملف الشخصي",
+    "logout": "تسجيل الخروج"
+  },
+  "settings": {
+    "title": "الإعدادات",
+    "language": "اللغة",
+    "language_subtitle": "اختر لغتك المفضلة",
+    "additional_settings": "إعدادات إضافية",
+    "coming_soon": "سيتم توفير السمة والإشعارات والتفضيلات في التحديثات المستقبلية."
+  },
+  "profile": {
+    "account_info": "معلومات الحساب",
+    "security": "الأمان",
+    "email": "البريد الإلكتروني",
+    "role": "الدور",
+    "password": "كلمة المرور",
+    "password_placeholder": "أدخل كلمة مرور جديدة",
+    "cancel": "إلغاء",
+    "save": "حفظ",
+    "saving": "جارٍ الحفظ...",
+    "errors": {
+      "update_failed": "فشل تحديث الملف الشخصي",
+      "network": "خطأ في الشبكة. حاول مرة أخرى."
+    }
+  },
+
+  "coaches": {
+    "title": "المدربين",
+    "add": "إضافة مدرب",
+    "search": "بحث عن المدربين...",
+    "first": "الاسم",
+    "last": "اللقب",
+    "email": "البريد الإلكتروني",
+    "phone": "الهاتف",
+    "athletes": "الرياضيون",
+    "options": "خيارات",
+    "edit": "تعديل",
+    "delete": "حذف",
+    "create": "مدرب جديد",
+    "update": "تعديل المدرب",
+    "full_name": "الاسم الكامل",
+    "password": "كلمة المرور",
+    "cancel": "إلغاء",
+    "save": "حفظ",
+    "confirm": "تأكيد",
+    "confirm_delete": "تأكيد الحذف",
+    "type_to_confirm": "اكتب البريد الإلكتروني للتأكيد:",
+    "creating": "جارٍ الإنشاء...",
+    "updating": "جارٍ التحديث...",
+    "deleting": "جارٍ الحذف..."
+  },
+  "admins": {
+    "title": "المشرفون",
+    "add": "إضافة مشرف",
+    "search": "بحث عن المشرفين...",
+    "email": "البريد الإلكتروني",
+    "options": "خيارات",
+    "edit": "تعديل",
+    "delete": "حذف",
+    "create": "مشرف جديد",
+    "update": "تعديل المشرف",
+    "password": "كلمة المرور",
+    "cancel": "إلغاء",
+    "save": "حفظ",
+    "confirm": "تأكيد",
+    "confirm_delete": "تأكيد الحذف",
+    "type_to_confirm": "اكتب البريد الإلكتروني للتأكيد:",
+    "creating": "جارٍ الإنشاء...",
+    "updating": "جارٍ التحديث...",
+    "deleting": "جارٍ الحذف..."
+  },
+  "home": {
+    "dashboard": "لوحة التحكم",
+    "total_coaches": "إجمالي المدربين",
+    "active_season": "نشط هذا الموسم",
+    "total_athletes": "إجمالي الرياضيين",
+    "registered_active": "مسجل ونشط",
+    "new_this_month": "مدربين جدد هذا الشهر",
+    "new_coaches": "مدربين جدد",
+    "avg_per_coach": "المتوسط لكل مدرب",
+    "athletes_per_coach": "ملاكم / مدرب",
+    "coach_recruited": "المدربين المسجلين شهرياً",
+    "member_activity": "نشاط الملاكمين",
+    "monthly": "شهري",
+    "weekly": "أسبوعي",
+    "coach_load": "عبء المدربين",
+    "loaded": "محمّل",
+    "available": "متاح",
+    "boxer": "ملاكم",
+    "boxers": "ملاكمين",
+    "no_loaded_coaches": "لا يوجد مدربين مع 50+ ملاكم",
+    "no_available_coaches": "لا يوجد مدربين متاحين"
+  }
+}

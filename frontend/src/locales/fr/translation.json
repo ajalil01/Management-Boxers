@@ -1,0 +1,124 @@
+{
+  "auth": {
+    "welcome": "Bon retour",
+    "subtitle": "Connectez-vous à votre compte",
+    "email": "Email",
+    "password": "Mot de passe",
+    "email_placeholder": "panic@thedis.co",
+    "password_placeholder": "********",
+    "login_button": "Se connecter",
+    "loading": "Connexion...",
+    "errors": {
+      "required_fields": "Veuillez remplir tous les champs",
+      "login_failed": "Échec de la connexion",
+      "network": "Erreur réseau. Réessayez."
+    },
+    "success": {
+      "login_success": "Connexion réussie"
+    }
+  },
+  "sidebar": {
+    "dashboard": "Tableau de bord",
+    "Home": "Accueil",
+    "Coaches": "Entraîneurs",
+    "Admins": "Administrateurs",
+    "players": "Joueurs",
+    "training": "Entraînement",
+    "matches": "Matchs",
+    "analytics": "Analytique",
+    "settings": "Paramètres",
+    "profile": "Profil",
+    "logout": "Déconnexion"
+  },
+  "settings": {
+    "title": "Paramètres",
+    "language": "Langue",
+    "language_subtitle": "Choisissez votre langue préférée",
+    "additional_settings": "Paramètres supplémentaires",
+    "coming_soon": "Le thème, les notifications et les préférences seront disponibles dans les futures mises à jour."
+  },
+"profile": {
+  "account_info": "Informations du compte",
+  "security": "Sécurité",
+  "email": "Email",
+  "role": "Rôle",
+  "password": "Mot de passe",
+  "password_placeholder": "Entrez un nouveau mot de passe",
+  "cancel": "Annuler",
+  "save": "Enregistrer",
+  "saving": "Enregistrement...",
+  "errors": {
+    "update_failed": "Échec de la mise à jour du profil",
+    "network": "Erreur réseau. Réessayez."
+  }
+},
+
+  "coaches": {
+    "title": "Entraîneurs",
+    "add": "Ajouter un entraîneur",
+    "search": "Rechercher des entraîneurs...",
+    "first": "Prénom",
+    "last": "Nom",
+    "email": "Email",
+    "phone": "Téléphone",
+    "athletes": "Athlètes",
+    "options": "Options",
+    "edit": "Modifier",
+    "delete": "Supprimer",
+    "create": "Nouvel entraîneur",
+    "update": "Modifier l'entraîneur",
+    "full_name": "Nom complet",
+    "password": "Mot de passe",
+    "cancel": "Annuler",
+    "save": "Enregistrer",
+    "confirm": "Confirmer",
+    "confirm_delete": "Confirmer la suppression",
+    "type_to_confirm": "Tapez l'email pour confirmer :",
+    "creating": "Création...",
+    "updating": "Mise à jour...",
+    "deleting": "Suppression..."
+  },
+  "admins": {
+    "title": "Administrateurs",
+    "add": "Ajouter un administrateur",
+    "search": "Rechercher des administrateurs...",
+    "email": "Email",
+    "options": "Options",
+    "edit": "Modifier",
+    "delete": "Supprimer",
+    "create": "Nouvel administrateur",
+    "update": "Modifier l'administrateur",
+    "password": "Mot de passe",
+    "cancel": "Annuler",
+    "save": "Enregistrer",
+    "confirm": "Confirmer",
+    "confirm_delete": "Confirmer la suppression",
+    "type_to_confirm": "Tapez l'email pour confirmer :",
+    "creating": "Création...",
+    "updating": "Mise à jour...",
+    "deleting": "Suppression..."
+  },
+  "home": {
+    "dashboard": "Tableau de bord",
+    "total_coaches": "Total entraîneurs",
+    "active_season": "Actif cette saison",
+    "total_athletes": "Total athlètes",
+    "registered_active": "Inscrit et actif",
+    "new_this_month": "Nouveaux entraîneurs ce mois",
+    "new_coaches": "Nouveaux entraîneurs",
+    "avg_per_coach": "Moyenne par entraîneur",
+    "athletes_per_coach": "Boxeurs / entraîneur",
+    "coach_recruited": "Entraîneurs recrutés par mois",
+    "member_activity": "Activité des boxeurs",
+    "monthly": "Mensuel",
+    "weekly": "Hebdomadaire",
+    "coach_load": "Charge des entraîneurs",
+    "loaded": "Chargé",
+    "available": "Disponible",
+    "boxer": "Boxeur",
+    "boxers": "Boxeurs",
+    "no_loaded_coaches": "Aucun entraîneur avec 50+ boxeurs",
+    "no_available_coaches": "Aucun entraîneur disponible"
+  }
+
+}

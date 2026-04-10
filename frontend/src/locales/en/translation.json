@@ -1,0 +1,116 @@
+{
+  "auth": {
+    "welcome": "Welcome Back",
+    "subtitle": "Log in to your account",
+    "email": "Email",
+    "password": "Password",
+    "email_placeholder": "panic@thedis.co",
+    "password_placeholder": "********",
+    "login_button": "Log in",
+    "loading": "Logging in...",
+    "errors": {
+      "required_fields": "Please fill in all fields",
+      "login_failed": "Login failed",
+      "network": "Network error. Try again."
+    },
+    "success": {
+      "login_success": "Login successful"
+    }
+  },
+  "sidebar": {
+    "dashboard": "Dashboard",
+    "Home": "Home",
+    "Coaches": "Coaches",
+    "Admins": "Admins",
+    "players": "Players",
+    "training": "Training",
+    "matches": "Matches",
+    "analytics": "Analytics",
+    "settings": "Settings",
+    "profile": "Profile",
+    "logout": "Logout"
+  },
+  "settings": {
+    "title": "Settings",
+    "language": "Language",
+    "language_subtitle": "Choose your preferred language",
+    "additional_settings": "Additional Settings",
+    "coming_soon": "Theme, notifications, and preferences will be available in future updates."
+  },
+"profile": {
+  "account_info": "Account Info",
+  "security": "Security",
+  "email": "Email",
+  "role": "Role",
+  "password": "Password",
+  "password_placeholder": "Enter new password",
+  "cancel": "Cancel",
+  "save": "Save",
+  "saving": "Saving...",
+  "errors": {
+    "update_failed": "Failed to update profile",
+    "network": "Network error. Try again."
+  }
+},
+  "coaches": {
+    "title": "Coaches",
+    "add": "Add coach",
+    "search": "Search coaches...",
+    "first": "First",
+    "last": "Last",
+    "email": "Email",
+    "phone": "Phone",
+    "athletes": "Athletes",
+    "options": "Options",
+    "edit": "Edit",
+    "delete": "Delete",
+    "create": "New Coach",
+    "update": "Edit Coach",
+    "full_name": "Full name",
+    "password": "Password",
+    "cancel": "Cancel",
+    "save": "Save",
+    "confirm": "Confirm",
+    "confirm_delete": "Confirm Delete",
+    "type_to_confirm": "Type email to confirm:",
+    "creating": "Creating...",
+    "updating": "Updating...",
+    "deleting": "Deleting..."
+  },
+  "admins": {
+    "title": "Admins",
+    "add": "Add admin",
+    "search": "Search admins...",
+    "email": "Email",
+    "options": "Options",
+    "edit": "Edit",
+    "delete": "Delete",
+    "create": "New Admin",
+    "update": "Edit Admin",
+    "password": "Password",
+    "cancel": "Cancel",
+    "save": "Save"
+  },
+  "home": {
+    "dashboard": "Dashboard",
+    "total_coaches": "Total coaches",
+    "active_season": "Active this season",
+    "total_athletes": "Total athletes",
+    "registered_active": "Registered & active",
+    "new_this_month": "New coaches this month",
+    "new_coaches": "New coaches",
+    "avg_per_coach": "Avg per coach",
+    "athletes_per_coach": "Boxers / coach",
+    "coach_recruited": "Coaches recruited per month",
+    "member_activity": "Boxer Activity",
+    "monthly": "Monthly",
+    "weekly": "Weekly",
+    "coach_load": "Coach Load",
+    "loaded": "Loaded",
+    "available": "Available",
+    "boxer": "Boxer",
+    "boxers": "Boxers",
+    "no_loaded_coaches": "No coaches with 50+ boxers",
+    "no_available_coaches": "No coaches available"
+  }
+}

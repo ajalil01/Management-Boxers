@@ -1,0 +1,420 @@
+.sidebar {
+  width: 280px;
+  height: 100vh;
+  background: var(--color-black-2);
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  border-right: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.3s ease;
+  overflow: hidden;
+  z-index: 100;
+
+  // RTL (Arabic) styles
+  &.rtl {
+    left: auto;
+    right: 0;
+    border-right: none;
+    border-left: 1px solid rgba(255, 255, 255, 0.1);
+
+    .sidebar-item {
+      svg {
+        margin-left: 12px;
+        margin-right: 0;
+      }
+
+      &:hover svg {
+        transform: translateX(-2px);
+      }
+    }
+
+    .profile-info {
+      text-align: right;
+    }
+
+    .dropdown-arrow {
+      &.rotated {
+        transform: rotate(-180deg);
+      }
+    }
+
+    @keyframes slideUpRTL {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .profile-dropdown {
+      animation: slideUpRTL 0.2s ease;
+    }
+  }
+
+  // Logo Section - stays at top
+  .sidebar-logo {
+    padding: 24px 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    flex-shrink: 0;
+
+    .logo-img {
+      width: 32px;
+      height: 32px;
+      object-fit: contain;
+    }
+
+    .logo-text {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--color-white);
+      letter-spacing: 0.5px;
+    }
+  }
+
+  // Navigation - scrollable middle section
+  .sidebar-nav {
+    flex: 1;
+    padding: 20px 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    overflow-y: auto;
+    min-height: 0;
+
+    &::-webkit-scrollbar {
+      width: 4px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 4px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: var(--color-red);
+      border-radius: 4px;
+    }
+  }
+
+  // Sidebar Item
+  .sidebar-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    border-radius: 8px;
+    color: var(--color-gray);
+    text-decoration: none;
+    transition: all 0.2s ease;
+    font-size: 14px;
+    font-weight: 500;
+    position: relative;
+    flex-shrink: 0;
+
+    svg {
+      flex-shrink: 0;
+      transition: all 0.2s ease;
+      color: var(--color-gray);
+    }
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--color-white);
+      
+      svg {
+        color: var(--color-red);
+        transform: translateX(2px);
+      }
+    }
+
+    &.active {
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--color-white);
+      
+      svg {
+        color: var(--color-white);
+      }
+    }
+  }
+
+  // Bottom Section - stays at bottom
+  .sidebar-bottom {
+    padding: 20px 12px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    flex-shrink: 0;
+    position: relative;
+  }
+
+  // Profile Dropdown
+  .profile-dropdown-container {
+    position: relative;
+    margin-top: 8px;
+  }
+
+  .profile-trigger {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.05);
+      border-color: rgba(255, 255, 255, 0.1);
+    }
+
+    .profile-avatar {
+      flex-shrink: 0;
+      
+      svg {
+        color: var(--color-gray);
+      }
+    }
+
+    .profile-info {
+      flex: 1;
+      text-align: left;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      min-width: 0;
+
+      .profile-name {
+        font-size: 14px;
+        font-weight: 500;
+        color: var(--color-white);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      .profile-email {
+        font-size: 11px;
+        color: var(--color-gray);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+    }
+
+    .dropdown-arrow {
+      flex-shrink: 0;
+      color: var(--color-gray);
+      transition: transform 0.2s ease;
+
+      &.rotated {
+        transform: rotate(180deg);
+      }
+    }
+  }
+
+  .profile-dropdown {
+    position: absolute;
+    bottom: calc(100% + 8px);
+    left: 0;
+    right: 0;
+    background: var(--color-black-3);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    padding: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    animation: slideUp 0.2s ease;
+    z-index: 1000;
+    min-width: 200px;
+
+    .dropdown-item {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 12px;
+      background: transparent;
+      border: none;
+      border-radius: 6px;
+      color: var(--color-gray);
+      cursor: pointer;
+      transition: all 0.2s ease;
+      font-size: 13px;
+      white-space: nowrap;
+
+      svg {
+        flex-shrink: 0;
+      }
+
+      &:hover {
+        background: rgba(255, 255, 255, 0.05);
+        color: var(--color-white);
+        
+        svg {
+          color: var(--color-red);
+        }
+      }
+
+      &.logout {
+        &:hover {
+          background: rgba(220, 38, 38, 0.1);
+          color: var(--color-red);
+          
+          svg {
+            color: var(--color-red);
+          }
+        }
+      }
+    }
+  }
+}
+
+// Animation
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// Avatar Letter Style
+.avatar-letter {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #e52234;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+// Responsive Mobile Styles
+@media (max-width: 768px) {
+  .sidebar {
+    width: 80px;
+    overflow: visible;
+    
+    .sidebar-logo {
+      justify-content: center;
+      padding: 24px 12px;
+      
+      .logo-text {
+        display: none;
+      }
+    }
+    
+    .sidebar-nav {
+      overflow-y: auto;
+      overflow-x: visible;
+    }
+    
+    .sidebar-item {
+      justify-content: center;
+      padding: 12px;
+      
+      span {
+        display: none;
+      }
+    }
+    
+    .sidebar-bottom {
+      overflow: visible;
+      padding: 20px 12px;
+    }
+    
+    .profile-trigger {
+      justify-content: center;
+      padding: 12px;
+      position: relative;
+      
+      .profile-info,
+      .dropdown-arrow {
+        display: none;
+      }
+    }
+    
+    .profile-dropdown-container {
+      position: relative;
+      overflow: visible;
+      
+      .profile-dropdown {
+        position: fixed;
+        bottom: auto;
+        top: auto;
+        left: 90px;
+        right: auto;
+        min-width: 200px;
+        width: auto;
+        background: var(--color-black-3);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 8px;
+        padding: 8px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+        z-index: 9999;
+        animation: slideUp 0.2s ease;
+        
+        // Position it relative to the profile button
+        top: auto;
+        bottom: auto;
+        transform: translateY(-50%);
+        top: 50%;
+        
+        // Add pointer arrow
+        &::before {
+          content: '';
+          position: absolute;
+          left: -8px;
+          top: 50%;
+          transform: translateY(-50%);
+          border-width: 8px;
+          border-style: solid;
+          border-color: transparent var(--color-black-3) transparent transparent;
+        }
+        
+        .dropdown-item {
+          white-space: nowrap;
+          padding: 10px 16px;
+          
+          span {
+            display: inline-block;
+          }
+        }
+      }
+    }
+
+    &.rtl {
+      .profile-dropdown-container {
+        .profile-dropdown {
+          left: auto;
+          right: 90px;
+          
+          &::before {
+            left: auto;
+            right: -8px;
+            border-color: transparent transparent transparent var(--color-black-3);
+          }
+        }
+      }
+    }
+  }
+}
+

@@ -1,0 +1,47 @@
+.dashboard-layout {
+  display: flex;
+  min-height: 100vh;
+  overflow-x: hidden;
+  position: relative;
+
+  .main-content {
+    flex: 1;
+    padding: 20px;
+    width: 100%;
+    overflow-x: hidden;
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+
+    // LTR - Desktop
+    margin-left: 280px;
+    margin-right: 0;
+
+    // RTL - Desktop
+    &.rtl {
+      margin-left: 0;
+      margin-right: 280px;
+    }
+
+    // 📱 Mobile & Tablet
+    @media (max-width: 768px) {
+      margin-left: 80px !important;
+      margin-right: 0 !important;
+      padding: 1rem;
+
+      &.rtl {
+        margin-left: 0 !important;
+        margin-right: 80px !important;
+      }
+    }
+
+    // 📱 Small mobile (when sidebar is hidden or collapsed)
+    @media (max-width: 480px) {
+      margin-left: 0 !important;
+      padding: 0.75rem;
+
+      &.rtl {
+        margin-right: 0 !important;
+      }
+    }
+  }
+}

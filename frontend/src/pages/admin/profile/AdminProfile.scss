@@ -1,0 +1,315 @@
+.admin-profile {
+  padding: 2rem;
+  width: 100%;
+  box-sizing: border-box;
+  min-height: 100vh;
+  background: var(--color-black);
+
+  .profile-card {
+    max-width: 800px;
+    margin: 2rem auto 0 auto;
+    background: var(--color-black-2);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 16px;
+    padding: 1.5rem;
+    transition: all 0.25s ease;
+
+    &:hover {
+      border-color: rgba(255, 255, 255, 0.1);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    }
+  }
+
+  .profile-avatar {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 30px;
+
+    .avatar-letter {
+      width: 90px;
+      height: 90px;
+      border-radius: 50%;
+      background: var(--color-black-3);
+      border: 2px solid rgba(255, 255, 255, 0.1);
+      font-size: 32px;
+      font-weight: 600;
+      color: var(--color-white);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+
+  .profile-section {
+    margin-bottom: 1.5rem;
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+
+      h3 {
+        color: var(--color-white);
+        font-size: 1.125rem;
+        margin: 0;
+        font-weight: 500;
+        letter-spacing: -0.3px;
+        flex-shrink: 0;
+      }
+
+      .section-line {
+        flex: 1;
+        height: 2px;
+        background: rgba(255, 255, 255, 0.08);
+      }
+    }
+  }
+
+  .profile-field {
+    display: flex;
+    align-items: center;
+    margin-bottom: 16px;
+    gap: 16px;
+
+    label {
+      font-size: 13px;
+      color: var(--color-white);
+      width: 100px;
+      flex-shrink: 0;
+      font-weight: 500;
+    }
+
+    input {
+      background: var(--color-black-3);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 8px;
+      padding: 10px 12px;
+      color: var(--color-gray);
+      font-size: 14px;
+      flex: 1;
+
+      &:disabled {
+        opacity: 0.7;
+        cursor: not-allowed;
+        color: var(--color-gray);
+      }
+
+      &:focus {
+        outline: none;
+        border-color: rgba(255, 255, 255, 0.2);
+      }
+    }
+
+    .field-with-icon {
+      flex: 1;
+      display: flex;
+      gap: 8px;
+      align-items: center;
+
+      input {
+        flex: 1;
+      }
+
+      .icon-button {
+        background: transparent;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 8px;
+        padding: 8px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--color-gray);
+
+        &:hover {
+          background: rgba(255, 255, 255, 0.05);
+          border-color: rgba(255, 255, 255, 0.2);
+          color: var(--color-white);
+        }
+
+        &.save-icon {
+          &:hover {
+            border-color: #4caf50;
+            color: #4caf50;
+          }
+        }
+
+        &.cancel-icon {
+          &:hover {
+            border-color: #f44336;
+            color: #f44336;
+          }
+        }
+      }
+    }
+  }
+
+  .profile-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    margin-top: 20px;
+
+    button {
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-size: 14px;
+      border: none;
+      cursor: pointer;
+      transition: all 0.2s ease;
+
+      &:disabled {
+        cursor: not-allowed;
+        opacity: 0.5;
+      }
+    }
+
+    .btn-cancel {
+      background: transparent;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: var(--color-gray);
+
+      &:hover:not(:disabled) {
+        background: rgba(255, 255, 255, 0.05);
+        color: var(--color-white);
+      }
+
+      &.disabled {
+        opacity: 0.3;
+      }
+    }
+
+    .btn-save {
+      background: var(--color-red);
+      color: white;
+      font-weight: 500;
+
+      &:hover:not(:disabled) {
+        background: #c71e2f;
+        transform: translateY(-1px);
+      }
+
+      &.inactive {
+        background: rgba(220, 38, 38, 0.3);
+        color: rgba(255, 255, 255, 0.5);
+        
+        &:hover {
+          transform: none;
+          background: rgba(220, 38, 38, 0.3);
+        }
+      }
+    }
+  }
+
+  .btn-secondary {
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: var(--color-white);
+    padding: 10px 14px;
+    border-radius: 8px;
+    font-size: 13px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.05);
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+  }
+
+  // 📱 Mobile Responsive
+  @media (max-width: 768px) {
+    padding: 1rem;
+
+    .profile-card {
+      padding: 1rem;
+      margin-top: 1rem;
+    }
+
+    .profile-avatar {
+      .avatar-letter {
+        width: 70px;
+        height: 70px;
+        font-size: 26px;
+      }
+    }
+
+    .profile-section {
+      .section-header {
+        h3 {
+          font-size: 1rem;
+        }
+      }
+    }
+
+    .profile-field {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 8px;
+
+      label {
+        width: auto;
+      }
+
+      input {
+        width: 100%;
+      }
+
+      .field-with-icon {
+        width: 100%;
+      }
+    }
+  }
+}
+
+// =======================
+// ✨ Page Load Animations
+// =======================
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.admin-profile {
+  animation: fadeIn 0.5s ease;
+}
+
+.profile-card {
+  animation: slideUp 0.6s ease;
+  animation-fill-mode: both;
+}
+
+// Stagger children inside card
+.profile-avatar {
+  animation: slideUp 0.6s ease 0.05s both;
+}
+
+.profile-section:nth-of-type(1) {
+  animation: slideUp 0.6s ease 0.15s both;
+}
+
+.profile-section:nth-of-type(2) {
+  animation: slideUp 0.6s ease 0.25s both;
+}
+
+.profile-actions {
+  animation: slideUp 0.6s ease 0.35s both;
+}
