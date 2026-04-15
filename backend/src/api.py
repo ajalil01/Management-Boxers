@@ -1,9 +1,5 @@
 from fastapi import APIRouter
 
-from fastapi import APIRouter, Depends
-from fastapi_limiter.depends import RateLimiter
-
-
 from src.modules.test.router import router as test_router
 from src.modules.admin.router import router as admin_router
 from src.modules.auth.router import router as auth_router
@@ -17,10 +13,7 @@ from src.modules.review.router import router as review_router
 from src.modules.analytics.admin.router import router as analytics_admin_router
 
 
-api_router = APIRouter(
-    dependencies=[Depends(RateLimiter(times=120, seconds=60))] # Global because we are testing only
-)
-
+api_router = APIRouter()
 
 api_router.include_router(test_router)
 api_router.include_router(admin_router, prefix="/admins", tags=["Admins"])
@@ -32,5 +25,5 @@ api_router.include_router(session_router, prefix="/schedules", tags=["Sessions"]
 api_router.include_router(exercise_router, prefix="/sessions", tags=["Exercises"])
 api_router.include_router(attendance_router, prefix="/sessions", tags=["Attendance"])
 api_router.include_router(review_router, prefix="/sessions", tags=["Reviews"])
-api_router.include_router(analytics_admin_router,prefix="/analytics/admin",tags=["Admin Analytics"])
+api_router.include_router(analytics_admin_router, prefix="/analytics/admin", tags=["Admin Analytics"])
 
