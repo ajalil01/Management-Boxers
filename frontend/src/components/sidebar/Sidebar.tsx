@@ -8,9 +8,9 @@ import {
   LogOut,
   UserCircle,
   ChevronDown,
-  Dumbbell,
+  // Dumbbell,
   Calendar,
-  Trophy,
+  // Trophy,
   FileText,
 } from "lucide-react";
 import logo from "../../assets/logo.png";
@@ -28,11 +28,21 @@ interface SidebarProps {
 
 const menuItems = {
   coach: [
-    { label: "sidebar.dashboard", path: "/coach/dashboard", icon: LayoutDashboard },
-    { label: "sidebar.players", path: "/coach/dashboard/players", icon: Users },
-    { label: "sidebar.training", path: "/coach/dashboard/training", icon: Dumbbell },
-    { label: "sidebar.matches", path: "/coach/dashboard/matches", icon: Calendar },
-    { label: "sidebar.analytics", path: "/coach/dashboard/analytics", icon: Trophy },
+    {
+      label: "sidebar.dashboard",
+      path: "/coach/dashboard",
+      icon: LayoutDashboard,
+    },
+    {
+      label: "sidebar.schedule",
+      path: "/coach/dashboard/schedule",
+      icon: Calendar,
+    },
+    {
+      label: "sidebar.athletes",
+      path: "/coach/dashboard/athletes",
+      icon: Users,
+    },
   ],
   admin: [
     { label: "sidebar.Home", path: "/admin/dashboard/home", icon: LayoutDashboard },

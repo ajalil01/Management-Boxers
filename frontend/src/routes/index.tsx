@@ -2,12 +2,15 @@ import { createBrowserRouter } from "react-router-dom";
 import NotFound from "../pages/public/notfound/index";
 import LandingPage from "../pages/public/landingPage";
 import Login from "../pages/public/auth/login/Login";
+import CoachLoginPage from "../pages/public/auth/login/CoachLogin";
 import DashboardLayout from "../layouts/DashboardLayout";
 
 // Coach pages
 import CoachHome from "../pages/coach/home";
-import CoachPlayers from "../pages/coach/players";
+// import CoachPlayers from "../pages/coach/players";
 import CoachSettings from "../pages/coach/settings";
+import CoachSchedule from "../pages/coach/schedule";
+import CoachAthletes from "../pages/coach/athletes";
 
 // Admin pages
 import AdminHome from "../pages/admin/home";
@@ -23,6 +26,10 @@ export const router = createBrowserRouter([
   },
   {
     path: "/login",
+    element: <CoachLoginPage />,
+  },
+  {
+    path: "/admin/login",
     element: <Login />,
   },
 
@@ -32,11 +39,10 @@ export const router = createBrowserRouter([
     element: <DashboardLayout role="coach" />,
     children: [
       { index: true, element: <CoachHome /> },
-      { path: "players", element: <CoachPlayers /> },
-      { path: "training", element: <div>Training Page</div> },
-      { path: "matches", element: <div>Matches Page</div> },
-      { path: "analytics", element: <div>Analytics Page</div> },
-      { path: "settings", element: <CoachSettings /> }, // Add this
+      { path: "schedule", element: <CoachSchedule /> },
+      { path: "athletes", element: <CoachAthletes /> },
+      { path: "settings", element: <CoachSettings /> },
+
     ],
   },
 

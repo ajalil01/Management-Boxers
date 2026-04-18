@@ -28,7 +28,9 @@
     "analytics": "التحليلات",
     "settings": "الإعدادات",
     "profile": "الملف الشخصي",
-    "logout": "تسجيل الخروج"
+    "logout": "تسجيل الخروج",
+    "schedule": "الجدول",
+    "athletes": "اللاعبين"
   },
   "settings": {
     "title": "الإعدادات",

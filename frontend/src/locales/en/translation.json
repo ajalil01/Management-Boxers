@@ -28,7 +28,9 @@
     "analytics": "Analytics",
     "settings": "Settings",
     "profile": "Profile",
-    "logout": "Logout"
+    "logout": "Logout",
+    "schedule": "Schedule",
+    "athletes": "Athletes"
   },
   "settings": {
     "title": "Settings",
