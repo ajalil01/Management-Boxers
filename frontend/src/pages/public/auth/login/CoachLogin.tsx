@@ -205,7 +205,7 @@ export default function CoachLoginPage() {
             disabled={loading}
             className="login-btn w-full py-2 rounded-md font-medium"
           >
-            {loading ? t("auth.loading") : "Coach Login"}
+            {loading ? t("auth.loading") : t("auth.login_button")}
           </button>
         </div>
       </div>
