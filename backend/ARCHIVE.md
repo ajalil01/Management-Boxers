@@ -24,3 +24,11 @@ pip install fastapi-limiter redis
 
 may improve architecture:
 https://claude.ai/share/f4bccdc2-5934-4de9-9757-ce21e0695e4e
+
+
+maybe later
+You'll need to create and run a migration to add the new columns:
+
+bash
+alembic revision --autogenerate -m "Add start_time and end_time to sessions"
+alembic upgrade head

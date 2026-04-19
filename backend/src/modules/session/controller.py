@@ -1,3 +1,4 @@
+# src/modules/session/controller.py
 from fastapi import HTTPException, status
 from uuid import UUID
 
@@ -34,6 +35,8 @@ class SessionController:
         new_session = await SessionService.create_session(
             name=payload.name,
             session_date=payload.session_date,
+            start_time=payload.start_time,
+            end_time=payload.end_time,
             schedule_id=schedule_id
         )
 
@@ -110,7 +113,9 @@ class SessionController:
         updated_session = await SessionService.update_session(
             session_id,
             name=payload.name,
-            session_date=payload.session_date
+            session_date=payload.session_date,
+            start_time=payload.start_time,  # ADD THIS
+            end_time=payload.end_time       # ADD THIS
         )
 
         logger.info(f"[Controller] Session updated: {session_id}")
@@ -147,3 +152,5 @@ class SessionController:
             message="Session deleted successfully",
             data=None
         )
+    
+    
