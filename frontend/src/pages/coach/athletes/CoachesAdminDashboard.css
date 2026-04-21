@@ -1,0 +1,483 @@
+/* CSS Variables */
+:root {
+  --color-black: #0a0a0a;
+  --color-black-2: #141414;
+  --color-black-3: #1f1f1f;
+  --color-black-4: #2a2a2a;
+  --color-white: #ffffff;
+  --color-gray: #888888;
+  --color-red: #e50914;
+}
+
+.coaches-dashboard {
+  padding: 1.5rem;
+  width: 100%;
+  background: var(--color-black);
+  min-height: 100vh;
+}
+
+/* Header Section */
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.75rem;
+}
+
+.dashboard-header h1 {
+  color: var(--color-white);
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.add-coach-btn {
+  background: #3a3a3a;
+  color: var(--color-white);
+  border: none;
+  padding: 0.5rem 1.25rem;
+  border-radius: 0.375rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.add-coach-btn:hover {
+  background: #4a4a4a;
+}
+
+/* Header Divider */
+.header-divider {
+  height: 1px;
+  background: #2a2a2a;
+  margin-bottom: 2rem;
+}
+
+/* Search Section */
+.search-section {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 1.5rem;
+}
+
+.search-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.search-icon {
+  position: absolute;
+  left: 0.75rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--color-gray);
+  pointer-events: none;
+}
+
+.search-input {
+  background: var(--color-black-2);
+  border: 1px solid var(--color-black-3);
+  color: var(--color-white);
+  padding: 0.5rem 0.75rem 0.5rem 2rem;
+  border-radius: 0.375rem;
+  font-size: 0.8125rem;
+  width: 240px;
+}
+
+.search-input::placeholder {
+  color: var(--color-gray);
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: var(--color-gray);
+}
+
+/* Table Container */
+.table-container {
+  background: var(--color-black-2);
+  border-radius: 0.5rem;
+  overflow-x: auto;
+  border: 1px solid var(--color-black-3);
+}
+
+.coaches-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 800px;
+}
+
+.coaches-table thead {
+  background: var(--color-black-3);
+  border-bottom: 1px solid var(--color-black-4);
+}
+
+.coaches-table th {
+  text-align: left;
+  padding: 0.875rem 1rem;
+  color: var(--color-gray);
+  font-weight: 500;
+  font-size: 0.8125rem;
+  text-transform: capitalize;
+}
+
+.coaches-table td {
+  padding: 0.875rem 1rem;
+  color: var(--color-white);
+  font-size: 0.875rem;
+  border-bottom: 1px solid var(--color-black-3);
+}
+
+.coaches-table tbody tr:hover {
+  background: var(--color-black-3);
+}
+
+/* Options Cell */
+.options-cell {
+  position: relative;
+}
+
+.options-button {
+  background: none;
+  border: none;
+  color: var(--color-gray);
+  font-size: 1.25rem;
+  cursor: pointer;
+  padding: 0.25rem 0.5rem;
+  transition: color 0.2s ease;
+  line-height: 1;
+}
+
+.options-button:hover {
+  color: var(--color-white);
+}
+
+/* Options Menu */
+.options-menu {
+  position: absolute;
+  right: 0;
+  top: 100%;
+  margin-top: 0.25rem;
+  background: var(--color-black-3);
+  border: 1px solid var(--color-black-4);
+  border-radius: 0.375rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  min-width: 100px;
+  overflow: hidden;
+}
+
+.options-menu button {
+  display: block;
+  width: 100%;
+  padding: 0.5rem 1rem;
+  text-align: left;
+  background: none;
+  border: none;
+  color: var(--color-white);
+  font-size: 0.8125rem;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.options-menu button:hover {
+  background: var(--color-black-4);
+}
+
+.options-menu button:last-child:hover {
+  color: var(--color-red);
+}
+
+/* No results message */
+.no-results {
+  text-align: center;
+  color: var(--color-gray);
+  padding: 2rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .coaches-dashboard {
+    padding: 1rem;
+  }
+
+  .dashboard-header {
+    flex-direction: column;
+    gap: 0.75rem;
+    align-items: stretch;
+    margin-bottom: 0.5rem;
+  }
+
+  .dashboard-header h1 {
+    text-align: center;
+  }
+
+  .add-coach-btn {
+    width: 100%;
+  }
+
+  .search-section {
+    justify-content: stretch;
+  }
+
+  .search-wrapper {
+    width: 100%;
+  }
+
+  .search-input {
+    width: 100%;
+  }
+}
+
+/* Table Container - UPDATED */
+.table-container {
+  background: var(--color-black-2);
+  border-radius: 0.5rem;
+  overflow-x: visible; /* Changed from 'auto' to 'visible' */
+  border: 1px solid var(--color-black-3);
+}
+
+.coaches-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 800px;
+}
+
+/* Options Cell - UPDATED */
+.options-cell {
+  position: relative;
+  overflow: visible; /* Add this */
+}
+
+/* Options Menu - UPDATED */
+.options-menu {
+  position: absolute;
+  right: 0;
+  top: 100%;
+  margin-top: 0.25rem;
+  background: var(--color-black-3);
+  border: 1px solid var(--color-black-4);
+  border-radius: 0.375rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  min-width: 100px;
+  overflow: visible; /* Change from 'hidden' to 'visible' */
+}
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+}
+
+.modal {
+  width: 400px;
+  background: var(--color-black-2);
+  padding: 1.5rem;
+  border-radius: 12px;
+  border: 1px solid var(--color-black-3);
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  color: white;
+}
+
+.modal input {
+  padding: 0.5rem;
+  background: var(--color-black-3);
+  border: 1px solid var(--color-black-4);
+  color: white;
+  border-radius: 6px;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+}
+
+.save {
+  background: #e50914;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+}
+
+.cancel {
+  background: transparent;
+  color: white;
+  border: 1px solid var(--color-black-4);
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+}
+
+/* Add these CSS classes for animations */
+
+/* Spinner animation */
+.spinner {
+  animation: spin 0.8s linear infinite;
+  display: inline-block;
+  margin-right: 0.5rem;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Button loading state animation */
+.save {
+  background: #e50914;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.save:active {
+  transform: scale(0.96);
+}
+
+.save:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.cancel:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.modal-header button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Modal fade-in animation */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+  animation: fadeIn 0.2s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.modal {
+  width: 400px;
+  background: var(--color-black-2);
+  padding: 1.5rem;
+  border-radius: 12px;
+  border: 1px solid var(--color-black-3);
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  animation: slideUp 0.2s ease;
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Input disabled state */
+input:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Modal header close button */
+.modal-header button {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1.25rem;
+  cursor: pointer;
+  transition: transform 0.1s ease;
+}
+
+.modal-header button:active:not(:disabled) {
+  transform: scale(0.9);
+}
+
+/* Add these animations to your CoachesAdminDashboard.css */
+
+/* =======================
+   ✨ Page Load Animations
+   ======================= */
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Apply animations to page elements */
+.coaches-dashboard {
+  animation: fadeIn 0.5s ease;
+}
+
+.dashboard-header {
+  animation: slideUp 0.6s ease 0.05s both;
+}
+
+.search-section {
+  animation: slideUp 0.6s ease 0.15s both;
+}
+
+.table-container {
+  animation: slideUp 0.6s ease 0.25s both;
+}
+
