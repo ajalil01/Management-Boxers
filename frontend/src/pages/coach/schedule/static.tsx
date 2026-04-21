@@ -1,44 +1,15 @@
 // CoachSchedule.tsx
-import React, { useState, useEffect, useCallback, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { ChevronLeft, ChevronRight, Plus, X, Calendar, Clock } from "lucide-react";
-import Alert from "@mui/material/Alert";
-import { API_BASE_URL } from "../../../api/config";
 import "./CoachSchedule.scss";
 
-// Types matching backend response
-interface BackendSession {
-  id: string;
-  name: string;
-  session_date: string;
-  start_time: string;
-  end_time: string;
-  schedule_id: string;
-  exercises: BackendExercise[];
-}
-
-interface BackendExercise {
-  id: string;
-  name: string;
-  description: string | null;
-  session_id: string;
-}
-
-interface BackendSchedule {
-  id: string;
-  name: string;
-  month: string;
-  coach_id: string;
-}
-
-// Frontend types
 interface Session {
   id: string;
   title: string;
   startTime: string;
   endTime: string;
   date: string;
-  scheduleId: string;
   exercises?: Exercise[];
 }
 
@@ -54,33 +25,13 @@ interface DaySession {
   isCurrentMonth: boolean;
 }
 
-interface MeResponse {
-  success: boolean;
-  data: {
-    id: string;
-    email: string;
-    role: string;
-  };
-}
-
 export default function CoachSchedule() {
   const { t } = useTranslation();
   const [viewType, setViewType] = useState<"monthly" | "daily">("monthly");
-  const [currentDate, setCurrentDate] = useState(new Date());
-  const [selectedDate, setSelectedDate] = useState<Date>(new Date());
+  const [currentDate, setCurrentDate] = useState(new Date(2026, 0)); // January 2026
+  const [selectedDate, setSelectedDate] = useState<Date>(new Date(2026, 0, 1));
   const [sessions, setSessions] = useState<Session[]>([]);
   const [loading, setLoading] = useState(true);
-  const [schedules, setSchedules] = useState<BackendSchedule[]>([]);
-  const [coachId, setCoachId] = useState<string | null>(null);
-  
-  // Use a ref to track if initial load is done
-  const initialLoadDone = useRef(false);
-  
-  // Alert state
-  const [alert, setAlert] = useState<{
-    type: "success" | "error" | "info" | "warning";
-    message: string;
-  } | null>(null);
   
   // Sidebar state
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -89,7 +40,6 @@ export default function CoachSchedule() {
   const [startTime, setStartTime] = useState("09:00");
   const [endTime, setEndTime] = useState("10:00");
   const [showDatePicker, setShowDatePicker] = useState(false);
-  const [isSubmitting, setIsSubmitting] = useState(false);
   
   // Exercises state
   const [exercises, setExercises] = useState<Exercise[]>([]);
@@ -97,183 +47,162 @@ export default function CoachSchedule() {
   const [currentExercise, setCurrentExercise] = useState({ name: "", description: "" });
   const [editingExerciseId, setEditingExerciseId] = useState<string | null>(null);
 
-  const token = localStorage.getItem("token");
-
-  // Auto-dismiss alert after 4 seconds
+  // Mock sessions data with examples across different days
   useEffect(() => {
-    if (!alert) return;
-    const timer = setTimeout(() => setAlert(null), 4000);
-    return () => clearTimeout(timer);
-  }, [alert]);
-
-  // ---------------- FETCH CURRENT USER ----------------
-  const fetchMe = async (): Promise<MeResponse | null> => {
-    try {
-      const res = await fetch(`${API_BASE_URL}/api/auth/me`, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-      return await res.json();
-    } catch (err) {
-      console.error(err);
-      return null;
-    }
-  };
-
-  // ---------------- FETCH ALL SCHEDULES ----------------
-  const fetchSchedules = useCallback(async (): Promise<BackendSchedule[]> => {
-    if (!coachId) return [];
-    
-    try {
-      const res = await fetch(`${API_BASE_URL}/api/schedules/`, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-      
-      const data = await res.json();
-      
-      if (res.ok && data.success) {
-        setSchedules(data.data);
-        return data.data;
-      }
-      return [];
-    } catch (err) {
-      console.error("Failed to fetch schedules:", err);
-      return [];
-    }
-  }, [coachId, token]);
-
-  // ---------------- GET OR CREATE SCHEDULE FOR MONTH ----------------
-  const getOrCreateScheduleForMonth = async (date: Date, currentSchedules?: BackendSchedule[]): Promise<string> => {
-    const monthStr = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}`;
-    
-    console.log("Looking for schedule:", monthStr);
-    
-    // Use provided schedules or fetch fresh ones
-    let schedulesToCheck = currentSchedules;
-    if (!schedulesToCheck) {
-      schedulesToCheck = await fetchSchedules();
-    }
-    
-    console.log("Existing schedules:", schedulesToCheck);
-    
-    // Check if schedule exists
-    const existingSchedule = schedulesToCheck.find(s => s.month === monthStr);
-    
-    if (existingSchedule) {
-      console.log("Found existing schedule:", existingSchedule.id);
-      return existingSchedule.id;
-    }
-    
-    console.log("Creating new schedule for:", monthStr);
-    
-    // Create new schedule
-    try {
-      const res = await fetch(`${API_BASE_URL}/api/schedules/`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({
-          name: `Schedule ${monthStr}`,
-          month: monthStr,
-        }),
-      });
-      
-      const data = await res.json();
-      
-      if (res.ok && data.success) {
-        const newSchedule = data.data;
-        console.log("Created new schedule:", newSchedule.id);
-        // Update schedules state
-        setSchedules(prev => [...prev, newSchedule]);
-        return newSchedule.id;
-      } else {
-        throw new Error(data.message || "Failed to create schedule");
-      }
-    } catch (err) {
-      console.error("Failed to create schedule:", err);
-      throw err;
-    }
-  };
-
-  // ---------------- FETCH SESSIONS FOR CURRENT MONTH ----------------
-  const fetchSessionsForMonth = useCallback(async (date: Date) => {
-    if (!coachId) return;
-    
-    setLoading(true);
-    try {
-      // First fetch all schedules to ensure we have the latest
-      const freshSchedules = await fetchSchedules();
-      
-      // Get or create schedule for current month
-      const scheduleId = await getOrCreateScheduleForMonth(date, freshSchedules);
-      
-      console.log("Fetching sessions for schedule:", scheduleId);
-      
-      // Fetch sessions for this schedule
-      const res = await fetch(`${API_BASE_URL}/api/schedules/${scheduleId}/sessions`, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-      
-      const data = await res.json();
-      
-      if (res.ok && data.success) {
-        const backendSessions: BackendSession[] = data.data;
-        
-        // Transform backend sessions to frontend format
-        const transformedSessions: Session[] = backendSessions.map(bs => ({
-          id: bs.id,
-          title: bs.name,
-          startTime: bs.start_time.substring(0, 5), // Extract HH:MM
-          endTime: bs.end_time.substring(0, 5),
-          date: bs.session_date,
-          scheduleId: bs.schedule_id,
-          exercises: bs.exercises?.map(e => ({
-            id: e.id,
-            name: e.name,
-            description: e.description || "",
-          })) || [],
-        }));
-        
-        console.log("Transformed sessions:", transformedSessions.length);
-        setSessions(transformedSessions);
-      } else {
-        console.error("Failed to fetch sessions:", data);
-        setSessions([]);
-      }
-    } catch (err) {
-      console.error("Failed to fetch sessions:", err);
-      setSessions([]);
-    } finally {
-      setLoading(false);
-    }
-  }, [coachId, token, fetchSchedules]);
-
-  // ---------------- INIT ----------------
-  useEffect(() => {
-    const init = async () => {
-      const me = await fetchMe();
-      if (me?.data?.id) {
-        setCoachId(me.data.id);
-      }
+    const fetchSessions = async () => {
+      setLoading(true);
+      // Simulate API call
+      setTimeout(() => {
+        const mockSessions: Session[] = [
+          // January 1 - 4 sessions
+          {
+            id: "1",
+            title: "Session 1",
+            startTime: "10:00",
+            endTime: "12:00",
+            date: "2026-01-01",
+          },
+          {
+            id: "2",
+            title: "Session 2",
+            startTime: "13:00",
+            endTime: "15:00",
+            date: "2026-01-01",
+          },
+          {
+            id: "3",
+            title: "Session 3",
+            startTime: "15:30",
+            endTime: "17:30",
+            date: "2026-01-01",
+          },
+          {
+            id: "4",
+            title: "Session 4",
+            startTime: "18:00",
+            endTime: "20:00",
+            date: "2026-01-01",
+          },
+          // January 5 - 1 session
+          {
+            id: "5",
+            title: "Morning Training",
+            startTime: "09:00",
+            endTime: "11:00",
+            date: "2026-01-05",
+          },
+          // January 10 - 2 sessions
+          {
+            id: "6",
+            title: "Session 1",
+            startTime: "10:00",
+            endTime: "12:00",
+            date: "2026-01-10",
+          },
+          {
+            id: "7",
+            title: "Session 2",
+            startTime: "14:00",
+            endTime: "16:00",
+            date: "2026-01-10",
+          },
+          // January 15 - 3 sessions
+          {
+            id: "8",
+            title: "Session 1",
+            startTime: "08:00",
+            endTime: "10:00",
+            date: "2026-01-15",
+          },
+          {
+            id: "9",
+            title: "Session 2",
+            startTime: "11:00",
+            endTime: "13:00",
+            date: "2026-01-15",
+          },
+          {
+            id: "10",
+            title: "Session 3",
+            startTime: "15:00",
+            endTime: "17:00",
+            date: "2026-01-15",
+          },
+          // January 20 - 5 sessions
+          {
+            id: "11",
+            title: "Session 1",
+            startTime: "09:00",
+            endTime: "10:30",
+            date: "2026-01-20",
+          },
+          {
+            id: "12",
+            title: "Session 2",
+            startTime: "11:00",
+            endTime: "12:30",
+            date: "2026-01-20",
+          },
+          {
+            id: "13",
+            title: "Session 3",
+            startTime: "13:00",
+            endTime: "14:30",
+            date: "2026-01-20",
+          },
+          {
+            id: "14",
+            title: "Session 4",
+            startTime: "15:00",
+            endTime: "16:30",
+            date: "2026-01-20",
+          },
+          {
+            id: "15",
+            title: "Session 5",
+            startTime: "17:00",
+            endTime: "18:30",
+            date: "2026-01-20",
+          },
+          // January 25 - 1 session
+          {
+            id: "16",
+            title: "Evening Session",
+            startTime: "19:00",
+            endTime: "21:00",
+            date: "2026-01-25",
+          },
+          // February 1 (next month) - 2 sessions
+          {
+            id: "17",
+            title: "Session 1",
+            startTime: "10:00",
+            endTime: "12:00",
+            date: "2026-02-01",
+          },
+          {
+            id: "18",
+            title: "Session 2",
+            startTime: "14:00",
+            endTime: "16:00",
+            date: "2026-02-01",
+          },
+          // December 29 (previous month) - 1 session
+          {
+            id: "19",
+            title: "Year End Session",
+            startTime: "10:00",
+            endTime: "12:00",
+            date: "2025-12-29",
+          },
+        ];
+        setSessions(mockSessions);
+        setLoading(false);
+      }, 500);
     };
-    init();
+
+    fetchSessions();
   }, []);
-
-  // Fetch schedules and sessions when coachId is available - only once initially
-  useEffect(() => {
-    if (coachId && !initialLoadDone.current) {
-      initialLoadDone.current = true;
-      fetchSessionsForMonth(currentDate);
-    }
-  }, [coachId, fetchSessionsForMonth, currentDate]);
-
-  // Fetch sessions when month changes
-  useEffect(() => {
-    if (coachId && initialLoadDone.current) {
-      fetchSessionsForMonth(currentDate);
-    }
-  }, [currentDate, coachId, fetchSessionsForMonth]);
 
   const handlePreviousMonth = () => {
     setCurrentDate(new Date(currentDate.getFullYear(), currentDate.getMonth() - 1));
@@ -287,22 +216,19 @@ export default function CoachSchedule() {
     const prevDay = new Date(selectedDate);
     prevDay.setDate(prevDay.getDate() - 1);
     setSelectedDate(prevDay);
-    if (prevDay.getMonth() !== currentDate.getMonth()) {
-      setCurrentDate(new Date(prevDay));
-    }
+    setCurrentDate(new Date(prevDay));
   };
 
   const handleNextDay = () => {
     const nextDay = new Date(selectedDate);
     nextDay.setDate(nextDay.getDate() + 1);
     setSelectedDate(nextDay);
-    if (nextDay.getMonth() !== currentDate.getMonth()) {
-      setCurrentDate(new Date(nextDay));
-    }
+    setCurrentDate(new Date(nextDay));
   };
 
   const handleAddSession = () => {
     setIsSidebarOpen(true);
+    // Set selected date to current month's first day when opening from monthly view
     if (viewType === "monthly") {
       setSelectedDateForm(new Date(currentDate.getFullYear(), currentDate.getMonth(), 1));
     } else {
@@ -341,7 +267,7 @@ export default function CoachSchedule() {
   const handleAddExercise = () => {
     if (currentExercise.name.trim() && currentExercise.description.trim()) {
       const newExercise: Exercise = {
-        id: `temp-${Date.now()}`,
+        id: Date.now().toString(),
         name: currentExercise.name,
         description: currentExercise.description,
       };
@@ -380,81 +306,17 @@ export default function CoachSchedule() {
     setExercises(exercises.filter(ex => ex.id !== exerciseId));
   };
 
-  const handleCreateSession = async () => {
-    if (!sessionName.trim()) return;
-    
-    setIsSubmitting(true);
-    setAlert(null);
-    
-    try {
-      // Get fresh schedules first
-      const freshSchedules = await fetchSchedules();
-      
-      // Get schedule for the selected date
-      const scheduleId = await getOrCreateScheduleForMonth(selectedDateForm, freshSchedules);
-      
-      // Format date as YYYY-MM-DD
-      const formattedDate = selectedDateForm.toISOString().split('T')[0];
-      
-      console.log("Creating session with scheduleId:", scheduleId);
-      
-      // Create session
-      const sessionRes = await fetch(`${API_BASE_URL}/api/schedules/${scheduleId}/sessions`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({
-          name: sessionName,
-          session_date: formattedDate,
-          start_time: startTime,
-          end_time: endTime,
-        }),
-      });
-      
-      const sessionData = await sessionRes.json();
-      
-      if (!sessionRes.ok || !sessionData.success) {
-        throw new Error(sessionData.message || "Failed to create session");
-      }
-      
-      const newBackendSession = sessionData.data;
-      const sessionId = newBackendSession.id;
-      
-      console.log("Session created:", sessionId);
-      
-      // Create exercises for the session
-      if (exercises.length > 0) {
-        await Promise.all(
-          exercises.map(exercise =>
-            fetch(`${API_BASE_URL}/api/sessions/${sessionId}/exercises`, {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${token}`,
-              },
-              body: JSON.stringify({
-                name: exercise.name,
-                description: exercise.description,
-              }),
-            })
-          )
-        );
-        console.log("Exercises created");
-      }
-      
-      setAlert({ type: "success", message: "Session created successfully" });
-      
-      // Refresh sessions for the current month
-      await fetchSessionsForMonth(currentDate);
-      handleCloseSidebar();
-    } catch (err: any) {
-      console.error("Error creating session:", err);
-      setAlert({ type: "error", message: err.message || "Failed to create session" });
-    } finally {
-      setIsSubmitting(false);
-    }
+  const handleCreateSession = () => {
+    const newSession: Session = {
+      id: Date.now().toString(),
+      title: sessionName,
+      startTime: startTime,
+      endTime: endTime,
+      date: selectedDateForm.toISOString().split('T')[0],
+      exercises: exercises,
+    };
+    setSessions([...sessions, newSession]);
+    handleCloseSidebar();
   };
 
   const getDaysInMonth = (date: Date): DaySession[] => {
@@ -536,8 +398,8 @@ export default function CoachSchedule() {
 
   const generateDateOptions = () => {
     const dates = [];
-    const year = selectedDateForm.getFullYear();
-    const month = selectedDateForm.getMonth();
+    const year = currentDate.getFullYear();
+    const month = currentDate.getMonth();
     const daysInMonth = new Date(year, month + 1, 0).getDate();
     
     for (let i = 1; i <= daysInMonth; i++) {
@@ -558,13 +420,6 @@ export default function CoachSchedule() {
 
   return (
     <>
-      {/* Alert Component */}
-      {alert && (
-        <div className="fixed-alert">
-          <Alert severity={alert.type}>{alert.message}</Alert>
-        </div>
-      )}
-
       <div className={`coach-home ${isSidebarOpen ? 'sidebar-open' : ''}`}>
         {/* Overlay */}
         {isSidebarOpen && <div className="overlay" onClick={handleCloseSidebar} />}
@@ -878,13 +733,16 @@ export default function CoachSchedule() {
           <button 
             className="create-btn"
             onClick={handleCreateSession}
-            disabled={!sessionName.trim() || isSubmitting}
+            disabled={!sessionName.trim()}
           >
-            {isSubmitting ? 'Creating...' : 'Create Session'}
+            Create Session
           </button>
         </div>
       </div>
     </>
   );
 }
+
+
+
 
