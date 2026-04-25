@@ -2,6 +2,7 @@ from pydantic import BaseModel, Field, model_validator
 from uuid import UUID
 from typing import List, Optional
 from datetime import date
+from datetime import datetime
 
 
 class RPEEntryBase(BaseModel):
