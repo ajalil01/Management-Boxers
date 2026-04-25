@@ -12,6 +12,7 @@ import CoachSettings from "../pages/coach/settings";
 import CoachSchedule from "../pages/coach/schedule";
 import CoachAthletes from "../pages/coach/athletes";
 import CoachProfile from "../pages/coach/profile";
+import RPEDashboard from "../pages/coach/rpe";
 
 // Admin pages
 import AdminHome from "../pages/admin/home";
@@ -44,6 +45,7 @@ export const router = createBrowserRouter([
       { path: "athletes", element: <CoachAthletes /> },
       { path: "settings", element: <CoachSettings /> },
       { path: "profile", element: <CoachProfile /> },
+      { path: "rpe", element: <RPEDashboard /> },
 
     ],
   },

@@ -8,7 +8,7 @@ import {
   LogOut,
   UserCircle,
   ChevronDown,
-  // Dumbbell,
+  Dumbbell,
   Calendar,
   // Trophy,
   FileText,
@@ -43,6 +43,12 @@ const menuItems = {
       path: "/coach/dashboard/athletes",
       icon: Users,
     },
+    {
+      label: "sidebar.rpe",
+      path: "/coach/dashboard/rpe",
+      icon: Dumbbell,
+    },
+
   ],
   admin: [
     { label: "sidebar.Home", path: "/admin/dashboard/home", icon: LayoutDashboard },
