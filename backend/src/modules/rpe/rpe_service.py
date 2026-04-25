@@ -1,4 +1,4 @@
-from sqlalchemy.future import select, func
+from sqlalchemy import func, select
 from uuid import UUID
 from datetime import date, timedelta
 from typing import List, Optional
@@ -7,6 +7,7 @@ from src.db.database import AsyncSessionLocal as async_session
 from src.modules.rpe.rpe_model import RPEEntry
 from src.modules.boxer.model import Boxer
 from src.modules.rpe.utils.logger import logger
+
 
 
 class RPEService:
