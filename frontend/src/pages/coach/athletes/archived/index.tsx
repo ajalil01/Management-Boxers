@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import { Search, Loader2, ImageIcon, X, Ruler, Weight, Calendar } from "lucide-react";
+import { Search, Loader2, ImageIcon } from "lucide-react";
 import Alert from "@mui/material/Alert";
 import "./CoachesAdminDashboard.css";
 import { API_BASE_URL, IMAGE_URL } from "../../../api/config";
@@ -12,9 +12,6 @@ interface Athlete {
   email: string;
   picture: string | null;
   coachId: string;
-  height: number | null;
-  weight: number | null;
-  age: number | null;
 }
 
 interface AthleteAPI {
@@ -24,9 +21,6 @@ interface AthleteAPI {
   email: string;
   picture: string | null;
   coach_id: string;
-  height: number | null;
-  weight: number | null;
-  age: number | null;
 }
 
 export default function CoachAthletes() {
@@ -44,20 +38,12 @@ export default function CoachAthletes() {
   const [deleteModal, setDeleteModal] = useState<Athlete | null>(null);
   const [deleteInput, setDeleteInput] = useState("");
 
-  // Card modal
-  const [cardModal, setCardModal] = useState<Athlete | null>(null);
-
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [picture, setPicture] = useState<File | null>(null);
   const [picturePreview, setPicturePreview] = useState<string | null>(null);
-  
-  // NEW FIELDS
-  const [height, setHeight] = useState<string>("");
-  const [weight, setWeight] = useState<string>("");
-  const [age, setAge] = useState<string>("");
 
   // Loading states
   const [isCreating, setIsCreating] = useState(false);
@@ -77,6 +63,7 @@ export default function CoachAthletes() {
   // Auto-dismiss alert after 4 seconds
   useEffect(() => {
     if (!alert) return;
+
     const timer = setTimeout(() => setAlert(null), 4000);
     return () => clearTimeout(timer);
   }, [alert]);
@@ -85,15 +72,19 @@ export default function CoachAthletes() {
     if (typeof data?.detail === "string") {
       return data.detail;
     }
+
     if (Array.isArray(data?.detail) && data.detail.length > 0) {
       return data.detail[0]?.msg || fallback;
     }
+
     if (typeof data?.message === "string") {
       return data.message;
     }
+
     return fallback;
   };
 
+  // Helper to get full image URL
   const getFullImageUrl = (picturePath: string | null): string | null => {
     if (!picturePath) return null;
     return `${IMAGE_URL}/${picturePath}`;
@@ -104,7 +95,9 @@ export default function CoachAthletes() {
     setIsLoading(true);
     try {
       const res = await fetch(`${API_BASE_URL}/api/boxers`, {
-        headers: { Authorization: `Bearer ${token}` },
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       });
 
       const json = await res.json();
@@ -124,9 +117,6 @@ export default function CoachAthletes() {
         email: a.email,
         picture: getFullImageUrl(a.picture),
         coachId: a.coach_id,
-        height: a.height,
-        weight: a.weight,
-        age: a.age,
       }));
 
       setAthletes(mapped);
@@ -152,6 +142,7 @@ export default function CoachAthletes() {
         setOpenMenuId(null);
       }
     };
+
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
@@ -184,14 +175,15 @@ export default function CoachAthletes() {
       formData.append("last_name", lastName);
       formData.append("email", email);
       formData.append("password", password);
-      if (picture) formData.append("picture", picture);
-      if (height) formData.append("height", height);
-      if (weight) formData.append("weight", weight);
-      if (age) formData.append("age", age);
+      if (picture) {
+        formData.append("picture", picture);
+      }
 
       const res = await fetch(`${API_BASE_URL}/api/boxers`, {
         method: "POST",
-        headers: { Authorization: `Bearer ${token}` },
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
         body: formData,
       });
 
@@ -241,15 +233,18 @@ export default function CoachAthletes() {
       formData.append("first_name", firstName);
       formData.append("last_name", lastName);
       formData.append("email", email);
-      if (password) formData.append("password", password);
-      if (picture) formData.append("picture", picture);
-      if (height) formData.append("height", height);
-      if (weight) formData.append("weight", weight);
-      if (age) formData.append("age", age);
+      if (password) {
+        formData.append("password", password);
+      }
+      if (picture) {
+        formData.append("picture", picture);
+      }
 
       const res = await fetch(`${API_BASE_URL}/api/boxers/${selectedAthlete.id}`, {
         method: "PUT",
-        headers: { Authorization: `Bearer ${token}` },
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
         body: formData,
       });
 
@@ -297,7 +292,9 @@ export default function CoachAthletes() {
     try {
       const res = await fetch(`${API_BASE_URL}/api/boxers/${athlete.id}`, {
         method: "DELETE",
-        headers: { Authorization: `Bearer ${token}` },
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       });
 
       const data = await res.json();
@@ -336,9 +333,6 @@ export default function CoachAthletes() {
     setPassword("");
     setPicture(null);
     setPicturePreview(null);
-    setHeight("");
-    setWeight("");
-    setAge("");
   };
 
   const openCreateModal = () => {
@@ -357,14 +351,7 @@ export default function CoachAthletes() {
     setPassword("");
     setPicture(null);
     setPicturePreview(athlete.picture);
-    setHeight(athlete.height?.toString() || "");
-    setWeight(athlete.weight?.toString() || "");
-    setAge(athlete.age?.toString() || "");
     setIsModalOpen(true);
-  };
-
-  const openCardModal = (athlete: Athlete) => {
-    setCardModal(athlete);
   };
 
   const filteredAthletes = athletes.filter((a) =>
@@ -432,12 +419,8 @@ export default function CoachAthletes() {
                 </tr>
               ) : (
                 filteredAthletes.map((athlete) => (
-                  <tr 
-                    key={athlete.id} 
-                    onClick={() => openCardModal(athlete)}
-                    style={{ cursor: "pointer" }}
-                  >
-                    <td onClick={(e) => e.stopPropagation()}>
+                  <tr key={athlete.id}>
+                    <td>
                       {athlete.picture ? (
                         <img
                           src={athlete.picture}
@@ -456,7 +439,7 @@ export default function CoachAthletes() {
                     <td>{athlete.lastName}</td>
                     <td>{athlete.email}</td>
 
-                    <td className="options-cell" onClick={(e) => e.stopPropagation()}>
+                    <td className="options-cell">
                       <button
                         className="options-button"
                         onClick={() =>
@@ -561,30 +544,6 @@ export default function CoachAthletes() {
               disabled={isCreating || isUpdating}
             />
 
-            {/* NEW FIELDS - Now stacked vertically */}
-            <input
-              placeholder={t("athletes.height", "Height (cm)")}
-              type="number"
-              value={height}
-              onChange={(e) => setHeight(e.target.value)}
-              disabled={isCreating || isUpdating}
-            />
-            <input
-              placeholder={t("athletes.weight", "Weight (kg)")}
-              type="number"
-              step="0.1"
-              value={weight}
-              onChange={(e) => setWeight(e.target.value)}
-              disabled={isCreating || isUpdating}
-            />
-            <input
-              placeholder={t("athletes.age", "Age")}
-              type="number"
-              value={age}
-              onChange={(e) => setAge(e.target.value)}
-              disabled={isCreating || isUpdating}
-            />
-
             <div className="modal-actions">
               <button 
                 className="cancel" 
@@ -639,85 +598,6 @@ export default function CoachAthletes() {
               >
                 {isDeleting && <Loader2 className="spinner" size={16} />}
                 {isDeleting ? t("athletes.deleting", "Deleting...") : t("athletes.confirm", "Confirm")}
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* ATHLETE CARD MODAL */}
-      {cardModal && (
-        <div className="modal-overlay" onClick={() => setCardModal(null)}>
-          <div className="athlete-card-modal" onClick={(e) => e.stopPropagation()}>
-            <button 
-              className="card-close-btn"
-              onClick={() => setCardModal(null)}
-            >
-              <X size={20} />
-            </button>
-
-            <div className="card-header">
-              {cardModal.picture ? (
-                <img 
-                  src={cardModal.picture} 
-                  alt={`${cardModal.firstName} ${cardModal.lastName}`}
-                  className="card-avatar"
-                />
-              ) : (
-                <div className="card-avatar-placeholder">
-                  <span>{cardModal.firstName[0]}{cardModal.lastName[0]}</span>
-                </div>
-              )}
-              
-              <div className="card-name-section">
-                <h2 className="card-name">{cardModal.firstName} {cardModal.lastName}</h2>
-                <p className="card-email">{cardModal.email}</p>
-              </div>
-            </div>
-
-            <div className="card-divider" />
-
-            <div className="card-stats-grid">
-              {cardModal.height && (
-                <div className="card-stat">
-                  <Ruler size={20} className="card-stat-icon" />
-                  <div className="card-stat-value">{cardModal.height}</div>
-                  <div className="card-stat-label">{t("athletes.height", "Height")} (cm)</div>
-                </div>
-              )}
-              
-              {cardModal.weight && (
-                <div className="card-stat">
-                  <Weight size={20} className="card-stat-icon" />
-                  <div className="card-stat-value">{cardModal.weight}</div>
-                  <div className="card-stat-label">{t("athletes.weight", "Weight")} (kg)</div>
-                </div>
-              )}
-              
-              {cardModal.age && (
-                <div className="card-stat">
-                  <Calendar size={20} className="card-stat-icon" />
-                  <div className="card-stat-value">{cardModal.age}</div>
-                  <div className="card-stat-label">{t("athletes.age", "Age")} {t("athletes.years", "years")}</div>
-                </div>
-              )}
-            </div>
-
-            {!cardModal.height && !cardModal.weight && !cardModal.age && (
-              <p className="card-no-stats">
-                {t("athletes.no_stats", "No physical stats recorded yet")}
-              </p>
-            )}
-
-            <div className="card-actions">
-              <button 
-                className="card-edit-btn"
-                onClick={() => {
-                  setCardModal(null);
-                  openEditModal(cardModal);
-                }}
-              >
-                {t("athletes.edit", "Edit Profile")}
               </button>
             </div>
           </div>

@@ -98,7 +98,7 @@
 .table-container {
   background: var(--color-black-2);
   border-radius: 0.5rem;
-  overflow-x: visible;
+  overflow-x: auto;
   border: 1px solid var(--color-black-3);
 }
 
@@ -136,7 +136,6 @@
 /* Options Cell */
 .options-cell {
   position: relative;
-  overflow: visible;
 }
 
 .options-button {
@@ -166,7 +165,7 @@
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
   z-index: 1000;
   min-width: 100px;
-  overflow: visible;
+  overflow: hidden;
 }
 
 .options-menu button {
@@ -231,9 +230,40 @@
   }
 }
 
-/* =======================
-   MODAL STYLES
-   ======================= */
+/* Table Container - UPDATED */
+.table-container {
+  background: var(--color-black-2);
+  border-radius: 0.5rem;
+  overflow-x: visible; /* Changed from 'auto' to 'visible' */
+  border: 1px solid var(--color-black-3);
+}
+
+.coaches-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 800px;
+}
+
+/* Options Cell - UPDATED */
+.options-cell {
+  position: relative;
+  overflow: visible; /* Add this */
+}
+
+/* Options Menu - UPDATED */
+.options-menu {
+  position: absolute;
+  right: 0;
+  top: 100%;
+  margin-top: 0.25rem;
+  background: var(--color-black-3);
+  border: 1px solid var(--color-black-4);
+  border-radius: 0.375rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  min-width: 100px;
+  overflow: visible; /* Change from 'hidden' to 'visible' */
+}
 
 .modal-overlay {
   position: fixed;
@@ -243,7 +273,6 @@
   align-items: center;
   justify-content: center;
   z-index: 2000;
-  animation: fadeIn 0.2s ease;
 }
 
 .modal {
@@ -255,37 +284,12 @@
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
-  animation: slideUp 0.2s ease;
 }
 
 .modal-header {
   display: flex;
   justify-content: space-between;
-  align-items: center;
   color: white;
-}
-
-.modal-header h2 {
-  color: var(--color-white);
-  margin: 0;
-}
-
-.modal-header button {
-  background: none;
-  border: none;
-  color: white;
-  font-size: 1.25rem;
-  cursor: pointer;
-  transition: transform 0.1s ease;
-}
-
-.modal-header button:active:not(:disabled) {
-  transform: scale(0.9);
-}
-
-.modal-header button:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
 }
 
 .modal input {
@@ -302,6 +306,41 @@
   gap: 0.5rem;
 }
 
+.save {
+  background: #e50914;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+}
+
+.cancel {
+  background: transparent;
+  color: white;
+  border: 1px solid var(--color-black-4);
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+}
+
+/* Add these CSS classes for animations */
+
+/* Spinner animation */
+.spinner {
+  animation: spin 0.8s linear infinite;
+  display: inline-block;
+  margin-right: 0.5rem;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Button loading state animation */
 .save {
   background: #e50914;
   color: white;
@@ -325,17 +364,58 @@
   transform: none;
 }
 
-.cancel {
-  background: transparent;
-  color: white;
-  border: 1px solid var(--color-black-4);
-  padding: 0.5rem 1rem;
-  border-radius: 6px;
-}
-
 .cancel:disabled {
   opacity: 0.7;
   cursor: not-allowed;
+}
+
+.modal-header button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Modal fade-in animation */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+  animation: fadeIn 0.2s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.modal {
+  width: 400px;
+  background: var(--color-black-2);
+  padding: 1.5rem;
+  border-radius: 12px;
+  border: 1px solid var(--color-black-3);
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  animation: slideUp 0.2s ease;
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }
 
 /* Input disabled state */
@@ -344,25 +424,25 @@ input:disabled {
   cursor: not-allowed;
 }
 
+/* Modal header close button */
+.modal-header button {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1.25rem;
+  cursor: pointer;
+  transition: transform 0.1s ease;
+}
+
+.modal-header button:active:not(:disabled) {
+  transform: scale(0.9);
+}
+
+/* Add these animations to your CoachesAdminDashboard.css */
+
 /* =======================
-   ANIMATIONS
+   ✨ Page Load Animations
    ======================= */
-
-/* Spinner animation */
-.spinner {
-  animation: spin 0.8s linear infinite;
-  display: inline-block;
-  margin-right: 0.5rem;
-}
-
-@keyframes spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
 
 @keyframes fadeIn {
   from {
@@ -384,7 +464,7 @@ input:disabled {
   }
 }
 
-/* Page Load Animations */
+/* Apply animations to page elements */
 .coaches-dashboard {
   animation: fadeIn 0.5s ease;
 }
@@ -399,202 +479,5 @@ input:disabled {
 
 .table-container {
   animation: slideUp 0.6s ease 0.25s both;
-}
-
-/* =======================
-   ATHLETE CARD MODAL
-   ======================= */
-
-.athlete-card-modal {
-  width: 420px;
-  background: var(--color-black-2);
-  padding: 0;
-  border-radius: 16px;
-  border: 1px solid var(--color-black-3);
-  display: flex;
-  flex-direction: column;
-  position: relative;
-  animation: slideUp 0.3s ease, fadeIn 0.3s ease;
-  overflow: hidden;
-}
-
-.card-close-btn {
-  position: absolute;
-  top: 1rem;
-  right: 1rem;
-  background: rgba(255, 255, 255, 0.1);
-  border: none;
-  color: var(--color-white);
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: background 0.2s ease;
-  z-index: 10;
-}
-
-.card-close-btn:hover {
-  background: rgba(255, 255, 255, 0.2);
-}
-
-.card-header {
-  padding: 2rem 1.5rem 1.5rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1rem;
-  background: linear-gradient(135deg, var(--color-black-3) 0%, var(--color-black-2) 100%);
-}
-
-.card-avatar {
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 3px solid var(--color-black-4);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
-}
-
-.card-avatar-placeholder {
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
-  background: var(--color-black-4);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: 3px solid var(--color-black-3);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
-}
-
-.card-avatar-placeholder span {
-  color: var(--color-white);
-  font-size: 2rem;
-  font-weight: 600;
-}
-
-.card-name-section {
-  text-align: center;
-}
-
-.card-name {
-  color: var(--color-white);
-  font-size: 1.5rem;
-  font-weight: 600;
-  margin: 0;
-}
-
-.card-email {
-  color: var(--color-gray);
-  font-size: 0.875rem;
-  margin: 0.25rem 0 0;
-}
-
-.card-divider {
-  height: 1px;
-  background: var(--color-black-3);
-  margin: 0 1.5rem;
-}
-
-.card-stats-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1rem;
-  padding: 1.5rem;
-}
-
-.card-stat {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 1rem;
-  background: var(--color-black-3);
-  border-radius: 12px;
-  border: 1px solid var(--color-black-4);
-  transition: transform 0.2s ease, border-color 0.2s ease;
-  text-align: center;
-}
-
-.card-stat:hover {
-  transform: translateY(-2px);
-  border-color: var(--color-gray);
-}
-
-.card-stat-icon {
-  color: var(--color-red);
-}
-
-.card-stat-value {
-  color: var(--color-white);
-  font-size: 1.25rem;
-  font-weight: 700;
-}
-
-.card-stat-label {
-  color: var(--color-gray);
-  font-size: 0.75rem;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  text-align: center;
-}
-
-.card-no-stats {
-  text-align: center;
-  color: var(--color-gray);
-  padding: 2rem 1.5rem;
-  font-style: italic;
-}
-
-.card-actions {
-  padding: 0 1.5rem 1.5rem;
-  display: flex;
-  justify-content: center;
-}
-
-.card-edit-btn {
-  width: 100%;
-  background: var(--color-red);
-  color: var(--color-white);
-  border: none;
-  padding: 0.75rem 1.5rem;
-  border-radius: 8px;
-  font-size: 0.875rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background 0.2s ease, transform 0.1s ease;
-}
-
-.card-edit-btn:hover {
-  background: #ff1a25;
-}
-
-.card-edit-btn:active {
-  transform: scale(0.98);
-}
-
-/* Make table rows clickable */
-.coaches-table tbody tr {
-  cursor: pointer;
-  transition: background 0.15s ease;
-}
-
-.coaches-table tbody tr:hover {
-  background: var(--color-black-3);
-}
-
-/* Responsive card */
-@media (max-width: 480px) {
-  .athlete-card-modal {
-    width: 90vw;
-    max-width: 360px;
-  }
-
-  .card-stats-grid {
-    grid-template-columns: 1fr;
-  }
 }
 
