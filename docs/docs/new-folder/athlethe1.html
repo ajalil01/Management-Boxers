@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Athlete — Schedule</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+ 
+  <div class="header">
+    <div class="athlete-logo">
+      <div class="logo-icon">
+        <img src="logo.svg" alt="Zephyr" style="height: 28px; width: auto;" />      </div>
+      <span id="athlete-name">Zephyr</span>
+    </div>
+    <div class="avatar" id="athlete-initials">Z</div>
+  </div>
+ 
+  <div class="stats-bar" id="stats-bar" style="display:none">
+    <div class="stat">
+      <div class="stat-dot" style="background:var(--present-text)"></div>
+      Présences: <span class="stat-val" id="stat-present">0</span>
+    </div>
+    <div class="stat">
+      <div class="stat-dot" style="background:var(--absent-text)"></div>
+      Absences: <span class="stat-val" id="stat-absent">0</span>
+    </div>
+    <div class="stat">
+      <div class="stat-dot" style="background:var(--muted)"></div>
+      Total: <span class="stat-val" id="stat-total">0</span>
+    </div>
+  </div>
+ 
+  <div class="nav">
+    <div class="nav-left">
+      <button class="nav-btn" onclick="changeMonth(-1)">&#8249;</button>
+      <button class="nav-btn" onclick="changeMonth(1)">&#8250;</button>
+      <span class="month-label" id="month-label">—</span>
+    </div>
+    <select class="filter-select" id="filter-select" onchange="applyFilter()">
+      <option value="all">All sessions</option>
+      <option value="present">Present</option>
+      <option value="absent">Absent</option>
+      <option value="pending">Pending</option>
+    </select>
+  </div>
+ 
+  <div class="content">
+    <div class="loading" id="loading">
+      <div class="spinner"></div>
+      Chargement des sessions...
+    </div>
+    <div id="error-container"></div>
+    <div id="sessions-container"></div>
+  </div>
+ 
+  <script src="js.js"></script>
+ 
+</body>
+</html>
