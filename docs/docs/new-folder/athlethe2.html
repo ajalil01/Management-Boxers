@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Zephyr</title>
+  <link rel="stylesheet" href="athletev1.css" />
+</head>
+<body>
+
+<div class="app">
+
+  <!-- ===== LEFT PANEL ===== -->
+  <div class="left">
+
+    <div class="topbar">
+      <!-- 🔥 LOGO MODIFIED HERE -->
+      <img src="logo.svg" class="logo-icon" alt="logo">
+
+      <span class="brand">Zephyr</span>
+    </div>
+
+    <div class="nav-bar">
+      <button class="nav-btn" onclick="changeMonth(-1)">&#8249;</button>
+      <button class="nav-btn" onclick="changeMonth(1)">&#8250;</button>
+      <span class="month-label" id="month-label">January 2026</span>
+    </div>
+
+    <div id="schedule-container"></div>
+
+  </div>
+
+  <!-- ===== RIGHT PANEL ===== -->
+  <div class="right">
+
+    <div class="panel-header">
+      <span class="session-name" id="panel-title">Session1</span>
+      <button class="close-btn" onclick="closePanel()">&#x2715;</button>
+    </div>
+
+    <div class="review-section">
+      <div class="section-label">leave a review</div>
+
+      <div class="field-label">Difficulty :</div>
+      <div class="difficulty-row">
+        <div class="diff-select-wrap">
+          <select class="diff-select" id="difficulty-select">
+            <option value="very-hard">very-hard</option>
+            <option value="hard">hard</option>
+            <option value="medium">medium</option>
+            <option value="easy">easy</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="field-label">Comment :</div>
+      <textarea class="comment-box" id="comment-input" placeholder="Share your thoughts"></textarea>
+
+      <div class="post-row">
+        <button class="post-btn" onclick="postReview()">Post</button>
+      </div>
+    </div>
+
+    <div class="reviews-section">
+      <div class="reviews-title">Athletes Reviews</div>
+      <div id="reviews-list"></div>
+    </div>
+
+  </div>
+
+</div>
+
+<!-- Toast notification -->
+<div class="toast" id="toast">Review posted!</div>
+
+<script src="athletev1.js"></script>
+</body>
+</html>
