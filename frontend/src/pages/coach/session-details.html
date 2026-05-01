@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8"><link rel="stylesheet" href="style.css">
+    <title>Exercises</title>
+</head>
+<body>
+    <nav class="sidebar"> <!-- نفس القائمة --> </nav>
+    <main class="calendar-view"> <!-- نفس المحتوى --> </main>
+    <aside class="detail-panel">
+        <div class="tabs">
+            <button class="tab" onclick="goTo('session-reviews.html')">Attendance</button>
+            <button class="tab active">Exercises</button>
+            <button class="tab" onclick="goTo('session-reviews.html')">Reviews</button>
+        </div>
+        <div id="exerciseList"></div>
+        <div id="exForm" style="display:none;" class="card">
+            <input type="text" id="exName" placeholder="Name"><br><br>
+            <textarea id="exDesc" placeholder="Description"></textarea>
+            <button class="btn-primary" onclick="toggleForm('exForm', 'addBtn')">Add</button>
+        </div>
+        <button id="addBtn" class="btn-add-exercise" onclick="toggleForm('exForm', 'addBtn')">+ Add Exercise</button>
+    </aside>
+    <script src="project.js"></script>
+    <script>window.onload = loadExercises;</script>
+</body>
+</html>

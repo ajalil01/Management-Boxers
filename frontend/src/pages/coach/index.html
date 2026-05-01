@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Coach - Schedule</title>
+</head>
+<body>
+    <!-- القائمة الجانبية الأصلية -->
+    <nav class="sidebar">
+        <h2 style="color: var(--accent-red); margin-bottom: 30px; padding-left: 10px;">Zephyr</h2>
+        <button class="nav-item" onclick="goTo('dashboard.html')">Home</button>
+        <button class="nav-item active" onclick="goTo('index.html')">Schedule</button>
+        <button class="nav-item" onclick="goTo('athletes.html')">Athletes</button>
+    </nav>
+
+    <!-- عرض التقويم (الوسط) -->
+    <main class="calendar-view">
+        <div class="calendar-header">
+            <h3 style="margin: 0;">January 1, 2026</h3>
+        </div>
+        
+        <!-- الجلسة كما تظهر في التصميم الأصلي -->
+        <div class="session-block" onclick="goTo('session-details.html')">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <div>
+                    <strong style="display: block; font-size: 16px;">Session1</strong>
+                    <span style="font-size: 12px; color: rgba(255,255,255,0.7);">Coach Name</span>
+                </div>
+                <span style="font-size: 14px;">10:00 - 12:00</span>
+            </div>
+        </div>
+    </main>
+
+    <!-- لوحة التفاصيل الجانبية (اليمين) -->
+    <aside class="detail-panel">
+        <h2 style="margin-top: 0;">New session</h2>
+        
+        <div class="input-group" style="margin-top: 20px;">
+            <label style="display: block; font-size: 12px; color: var(--text-dim); margin-bottom: 8px;">Session name</label>
+            <input type="text" id="sessName" placeholder="name" style="width: 100%; padding: 12px; background: #111; border: 1px solid #333; color: white; border-radius: 6px;">
+        </div>
+
+        <!-- زر إضافة تمرين بتصميم الـ Border المقطع (Dashed) -->
+        <div style="margin-top: 20px;">
+            <button id="addBtn" class="btn-add-exercise" onclick="toggleForm('exForm', 'addBtn')" style="border: 1px dashed #444; background: transparent; color: var(--text-dim); padding: 20px; width: 100%; border-radius: 8px; cursor: pointer;">
+                + Add Exercise
+            </button>
+            
+            <!-- نموذج إضافة تمرين (يظهر عند الضغط) -->
+            <div id="exForm" style="display: none;" class="card">
+                <input type="text" id="exName" placeholder="Exercise name" style="margin-bottom: 10px;">
+                <textarea id="exDesc" placeholder="Description" rows="3"></textarea>
+                <div style="display: flex; gap: 10px; margin-top: 10px;">
+                    <button class="btn-primary" style="padding: 5px 15px; width: auto;" onclick="toggleForm('exForm', 'addBtn')">Add</button>
+                    <button onclick="toggleForm('exForm', 'addBtn')" style="background:none; border:none; color:white; cursor:pointer;">Cancel</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- زر الحفظ النهائي المرتبط بالـ API -->
+        <button class="btn-primary" style="margin-top: auto;" onclick="createNewSession()">Create Session</button>
+    </aside>
+
+    <script src="project.js"></script>
+</body>
+</html>

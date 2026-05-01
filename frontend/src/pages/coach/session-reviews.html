@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8"><link rel="stylesheet" href="style.css">
+    <title>Reviews</title>
+</head>
+<body>
+    <nav class="sidebar"> <!-- نفس القائمة --> </nav>
+    <main class="calendar-view"> <!-- نفس المحتوى --> </main>
+    <aside class="detail-panel">
+        <div class="tabs">
+            <button class="tab active">Attendance</button>
+            <button class="tab" onclick="goTo('session-details.html')">Exercises</button>
+            <button class="tab active">Reviews</button>
+        </div>
+        <div id="reviewsList"></div>
+    </aside>
+    <script src="project.js"></script>
+    <script>window.onload = loadReviews;</script>
+</body>
+</html>
